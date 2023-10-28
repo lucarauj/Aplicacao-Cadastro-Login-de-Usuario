@@ -18,6 +18,7 @@
 ## Anotações
 
 - @AllArgsConstructor
+- @Data
 - @Email
 - @Embeddable
 - @Embedded
@@ -26,12 +27,16 @@
 - @GeneratedValue(strategy = GenerationType.IDENTITY)
 - @Getter
 - @Id
+- @JoinColumn
 - @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+- @ManyToOne
 - @NotBlank
 - @NoArgsConstructor
 - @Pattern(regexp = "\d{8}")
 - @Repository
+- @Service
 - @Setter
 - @Table
+- @Transactional
 - @Valid
 
