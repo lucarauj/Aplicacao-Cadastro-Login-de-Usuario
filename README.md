@@ -6,6 +6,7 @@
 
 ## Dependências
 
+- Spring Web
 - Spring Data JPA
 - Validation
 - PostgreSQL Driver
@@ -15,4 +16,22 @@
 - Java JWT
 
 ## Anotações
+
+- @AllArgsConstructor
+- @Email
+- @Embeddable
+- @Embedded
+- @Entity
+- @EqualsAndHashCode(of = "id")
+- @GeneratedValue(strategy = GenerationType.IDENTITY)
+- @Getter
+- @Id
+- @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+- @NotBlank
+- @NoArgsConstructor
+- @Pattern(regexp = "\d{8}")
+- @Repository
+- @Setter
+- @Table
+- @Valid
 

@@ -18,5 +18,4 @@ public record EnderecoUsuarioDto(
         @Pattern(regexp = "\\d{8}")
         String cep,
         String complemento
-) {
-}
+) { }
