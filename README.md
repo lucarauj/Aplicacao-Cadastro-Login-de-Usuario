@@ -19,12 +19,15 @@
 
 - @AllArgsConstructor
 - @Data
+- @DeleteMapping
 - @Email
 - @Embeddable
 - @Embedded
 - @Entity
 - @EqualsAndHashCode(of = "id")
+- @ExceptionHandler
 - @GeneratedValue(strategy = GenerationType.IDENTITY)
+- @GetMapping
 - @Getter
 - @Id
 - @JoinColumn
@@ -33,7 +36,14 @@
 - @NotBlank
 - @NoArgsConstructor
 - @Pattern(regexp = "\d{8}")
+- @PostMapping
+- @PutMapping
+- @RequestBody
 - @Repository
+- @RestController
+- @ResponseBody
+- @RequestMapping
+- @RestControllerAdvice
 - @Service
 - @Setter
 - @Table
