@@ -18,11 +18,15 @@
 ## Anotações
 
 - @AllArgsConstructor
+- @Bean
+- @Component
+- @Configuration
 - @Data
 - @DeleteMapping
 - @Email
 - @Embeddable
 - @Embedded
+- @EnableWebSecurity
 - @Entity
 - @EqualsAndHashCode(of = "id")
 - @ExceptionHandler
@@ -49,4 +53,5 @@
 - @Table
 - @Transactional
 - @Valid
+- @Value
 

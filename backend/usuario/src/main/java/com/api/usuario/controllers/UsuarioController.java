@@ -73,7 +73,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/recuperar-senha")
-    public ResponseEntity recuperarSenha(@RequestBody @Valid UsuarioRecuperarSenhaDto usuarioRecuperarSenhaDto) {
+    public ResponseEntity recuperarSenha(@RequestBody @Valid UsuarioRecuperaSenhaDto usuarioRecuperarSenhaDto) {
 
         var usuario = usuarioRepository.findByEmailIgnoreCase(usuarioRecuperarSenhaDto.email());
 
@@ -98,7 +98,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/alterar-senha/{token}")
-    public ResponseEntity alterarSenha(@PathVariable String token, @RequestBody @Valid UsuarioAlterarSenhaDto usuarioAlterarSenhaDto) {
+    public ResponseEntity alterarSenha(@PathVariable String token, @RequestBody @Valid UsuarioAlteraSenhaDto usuarioAlterarSenhaDto) {
 
         var alteraSenha = usuarioService.atualizarSenha(token, usuarioAlterarSenhaDto.senha());
 
