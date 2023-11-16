@@ -30,13 +30,14 @@ public class SecurityConfigurations {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeHttpRequests()
 
-                .requestMatchers(HttpMethod.POST, "/api/v1/usuarios/autenticacao").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/v1/usuarios/cadastrar-usuario").permitAll()
+                .requestMatchers(HttpMethod.PUT, "/api/v1/usuarios/confirmar-usuario/{token}/{id}").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/v1/usuarios/autenticacao").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/v1/usuarios/recuperar-senha").permitAll()
+                .requestMatchers(HttpMethod.PUT, "/api/v1/usuarios/alterar-senha/{token}").permitAll()
+
                 .requestMatchers(HttpMethod.GET, "/api/v1/usuarios/listar-usuario/{id}").permitAll()
                 .requestMatchers(HttpMethod.PUT, "/api/v1/usuarios/atualizar-usuario/{id}").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/v1/usuarios/recuperar-senha").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/v1/usuarios/alterar-senha/{token}").permitAll()
-
                 .requestMatchers(HttpMethod.GET, "/api/v1/usuarios/listar-usuarios").hasAuthority("ROLE_ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/api/v1/usuarios/deletar-usuario/{id}").hasAuthority("ROLE_ADMIN")
 

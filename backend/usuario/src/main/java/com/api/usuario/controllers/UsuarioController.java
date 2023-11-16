@@ -59,7 +59,7 @@ public class UsuarioController {
         UsuarioTokenDto usuarioTokenDto = new UsuarioTokenDto(novoUsuario, tokenJWT);
 
         String destinatario = usuarioDto.email();
-        String assunto = "Bem-vindo ao ICPA-Ecommerce";
+        String assunto = "Bem-vindo ao 'Meu site'";
         String nome = usuarioDto.nome();
         String token = tokenJWT;
 
@@ -70,6 +70,20 @@ public class UsuarioController {
         }
 
         return ResponseEntity.ok(usuarioTokenDto);
+    }
+
+    @PutMapping("/confirmar-usuario/{token}/{id}")
+    public ResponseEntity confirmarUsuario(@PathVariable("token") String token, @PathVariable("id") Long id) {
+
+        var usuario = senhaTokenRepository.findByToken(token);
+
+        if(usuario.isEmpty()) {
+            return ResponseEntity.ok().body("Usuário não existe para o token informado!");
+        }
+
+        var confirmaUsuario = usuarioService.confirmarUsuario(token, id);
+
+        return ResponseEntity.ok().body(confirmaUsuario);
     }
 
     @PostMapping("/recuperar-senha")
@@ -97,7 +111,7 @@ public class UsuarioController {
         return ResponseEntity.ok().body("E-mail enviado com sucesso!");
     }
 
-    @PostMapping("/alterar-senha/{token}")
+    @PutMapping("/alterar-senha/{token}")
     public ResponseEntity alterarSenha(@PathVariable String token, @RequestBody @Valid UsuarioAlteraSenhaDto usuarioAlterarSenhaDto) {
 
         var alteraSenha = usuarioService.atualizarSenha(token, usuarioAlterarSenhaDto.senha());
@@ -105,34 +119,39 @@ public class UsuarioController {
         return ResponseEntity.ok().body(alteraSenha);
     }
 
-    @GetMapping("/listar-usuarios")
-    @ResponseBody
-    public ResponseEntity listarUsuarios() {
-
-        var usuarios = usuarioRepository.findAll();
-        if(!usuarios.isEmpty()) {
-            return ResponseEntity.ok(usuarios);
-        }
-        return ResponseEntity.ok("Não há usuários cadastrados");
-    }
-
-    @GetMapping("/listar-usuario/{id}")
-    @ResponseBody
-    public ResponseEntity pesquisarProdutosPorId(@PathVariable Long id) {
-
-        var usuario = usuarioRepository.getReferenceById(id);
-        return ResponseEntity.ok(usuario);
-    }
-
-    @PutMapping("/atualizar-usuario/{id}")
-    public ResponseEntity atualizarUsuario(@PathVariable Long id, @RequestBody UsuarioDto usuarioDto) {
-
-        var usuario = usuarioService.alterarUsuario(id, usuarioDto);
-        return ResponseEntity.ok(usuario);
-    }
-
+//    @GetMapping("/listar-usuarios")
+//    @ResponseBody
+//    public ResponseEntity listarUsuarios() {
+//
+//        var usuarios = usuarioRepository.findAll();
+//        if(!usuarios.isEmpty()) {
+//            return ResponseEntity.ok(usuarios);
+//        }
+//        return ResponseEntity.ok("Não há usuários cadastrados");
+//    }
+//
+//    @GetMapping("/listar-usuario/{id}")
+//    @ResponseBody
+//    public ResponseEntity pesquisarProdutosPorId(@PathVariable Long id) {
+//
+//        var usuario = usuarioRepository.getReferenceById(id);
+//        return ResponseEntity.ok(usuario);
+//    }
+//
+//    @PutMapping("/atualizar-usuario/{id}")
+//    public ResponseEntity atualizarUsuario(@PathVariable Long id, @RequestBody UsuarioDto usuarioDto) {
+//
+//        var usuario = usuarioService.alterarUsuario(id, usuarioDto);
+//        return ResponseEntity.ok(usuario);
+//    }
+//
     @DeleteMapping("/deletar-usuario/{id}")
     public ResponseEntity deletarUsuario(@PathVariable Long id) {
+
+        var usuario = usuarioRepository.findById(id);
+        if(usuario.isEmpty()) {
+            return ResponseEntity.ok().body("Não existe usuário para o ID informado!");
+        }
 
         usuarioService.excluirUsuario(id);
         return ResponseEntity.ok("Usuário excluído com sucesso!");

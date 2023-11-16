@@ -21,7 +21,7 @@ public class MensagemEmailCadastro {
                         "                <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\n" +
                         "                    <tr>\n" +
                         "                        <td class=\"align-center\" width=\"100%\">\n" +
-                        "                           <a href=\"https://meusite\"><img src=\"https://raw.githubusercontent.com/lucarauj/assets/0a17f80cf1e62a2b8e0cc70a840361d9fc15e842/brand.svg\" height=\"100\" alt=\"meusite\"></a>" +
+                        "                           <a href=\"https://meusite\"><img src=\"https://raw.githubusercontent.com/lucarauj/assets/main/meusite.png\" height=\"100\" alt=\"meusite\"></a>" +
                         "                        </td>\n" +
                         "                    </tr>\n" +
                         "                </table>\n" +
@@ -36,7 +36,7 @@ public class MensagemEmailCadastro {
                         "                                    <td>\n" +
                         "                                        <p>&nbsp; Olá," + " " + nome +"!" + "</p>\r\n" +
                         "                                        <br><br>\n" +
-                        "                                        <p>&nbsp; Agradecemos por se cadastrar no meusite. </p>\n" +
+                        "                                        <p>&nbsp; Agradecemos por se cadastrar no 'Meu site'. </p>\n" +
                         "                                        <p>&nbsp; Por favor, clique no link abaixo para confirmar seu cadastro:</p>\n" +
                         "                                        <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\"\n" +
                         "                                               class=\"btn btn-primary\">\n" +

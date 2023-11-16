@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.OffsetDateTime;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -52,6 +54,7 @@ public class UsuarioService implements UserDetailsService {
         usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
         usuario.setData_criacao(OffsetDateTime.now());
         var novoUsuario = usuarioRepository.save(usuario);
+        gerarToken(novoUsuario);
 
         return ResponseEntity.ok(novoUsuario);
     }
@@ -84,6 +87,9 @@ public class UsuarioService implements UserDetailsService {
 
     @Transactional
     public void excluirUsuario(Long id) {
+        List<SenhaToken> usuariosToken = senhaTokenRepository.findByUsuarioId(id).orElse(Collections.emptyList());
+        senhaTokenRepository.deleteAll(usuariosToken);
+
         usuarioRepository.deleteById(id);
     }
 
@@ -132,5 +138,30 @@ public class UsuarioService implements UserDetailsService {
         senhaTokenRepository.save(tokenOptional.get());
 
         return ResponseEntity.ok().body("Senha atualizada com sucesso!");
+    }
+
+    public ResponseEntity<Object> confirmarUsuario(String token, Long id) {
+
+        Optional<SenhaToken> tokenOptional = senhaTokenRepository.findByToken(token);
+        if(tokenOptional.isEmpty()) {
+            return ResponseEntity.ok().body("Token inválido!");
+        }
+
+        if(tokenOptional.get().getConfirmadoEm() != null) {
+            return ResponseEntity.ok().body("Token já foi utilizado");
+        }
+
+        if(tokenOptional.get().getExpiraEm().isBefore(OffsetDateTime.now())) {
+            return ResponseEntity.ok().body("Token expirado, solicite outro token");
+        }
+
+        Optional<Usuario> usuarioOptional = usuarioRepository.findById(id);
+        usuarioOptional.get().setConfirmado(true);
+        usuarioRepository.save(usuarioOptional.get());
+
+        tokenOptional.get().setConfirmadoEm(OffsetDateTime.now());
+        senhaTokenRepository.save(tokenOptional.get());
+
+        return ResponseEntity.ok().body("Usuário confirmado com sucesso!");
     }
 }
